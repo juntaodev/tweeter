@@ -4,35 +4,8 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-$(document).ready(function () {
-  console.log("new beenz");
+$(document).ready(function() {
 
-
-  // Test / driver code (temporary). Eventually will get this from the server.
-  const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png"
-        ,
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ];
 
   const createTweetElement = function(data) {
     console.log(data.content.text);
@@ -49,7 +22,7 @@ $(document).ready(function () {
       </div>
       <article class="tweet">${data.content.text}</article>
       <footer>
-        <div>${data.created_at}</div>
+        <div>${timeago.format(data.created_at)}</div>
         <div class="small-icons">
           <a><i class="fa-solid fa-flag"></i></a>
           <a><i class="fa-solid fa-repeat"></i></a>
@@ -61,6 +34,7 @@ $(document).ready(function () {
     return tweet;
   };
 
+  // show tweets in front page
   const renderTweets = function(tweets) {
     // loops through tweets
     // calls createTweetElement for each tweet
@@ -71,16 +45,50 @@ $(document).ready(function () {
     });
   };
 
-  renderTweets(data);
+  // load tweets from server
+  const loadTweets = function() {
+    // sends loaded data to renderTweets using AJAX
+    $.ajax("/tweets", { method: "GET" }).then(function(data) {
+      renderTweets(data);
+    });
+  };
 
-  $("#new-tweet-form").submit(function(event) {
+  const validation = (data) => {
+    if (!data) {
+      return false;
+    }
+
+    if (data.length > 140) {
+      return false;
+    }
+
+    return true;
+  };
+
+  // initial load function
+  loadTweets();
+
+  $("#form").submit(function(event) {
     event.preventDefault();
 
-    // convert JSON data to query-text format
-    const serializedData = $(this).serialize();
+    const inputData = $(".input-bar").val();
 
-    // jQuery AJAX post request
-    $.post("/tweets", serializedData);
+    const isValid = validation(inputData);
+    console.log(isValid);
+
+    if (isValid) {
+      // convert JSON data to query-text format
+      const serializedData = $(this).serialize();
+      console.log(serializedData);
+
+      // jQuery AJAX post request
+      $.post("/tweets", serializedData).then(() => {
+        loadTweets();
+      });
+    } else {
+      console.log("no tweets found");
+    }
+    
   });
 
 
