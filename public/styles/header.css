@@ -1,0 +1,15 @@
+header {
+  height: 520px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background:	#b2bbd9;
+  background-image: url(https://www.transparenttextures.com/patterns/arches.png)
+  
+}
+
+header .profile-img{
+  
+  margin-top: 132px;
+}
