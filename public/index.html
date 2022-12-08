@@ -52,7 +52,7 @@
     <main class="container">
       <section class="new-tweet">
         
-        <form method="POST" action="/tweets">
+        <form method="POST" action="/tweets" id="new-tweet-form">
           <input name="text" id="tweet-text" placeholder="What are you humming about?" class="input-bar"></input>
           <div class="under-tweet">
             <button class="tweet-btn" type="submit">Tweet</button>
@@ -61,9 +61,9 @@
         </form>
       </section>
 
-       <!--Existing tweet containers-->
+      <!--Existing tweet containers-->
       <section id="tweets-container">
-        <div class="tweet-container">
+        <!-- <div class="tweet-container">
           <div class="tweet-user">
             <div class="tweet-user-name">
               <img class="image" src="https://i.imgur.com/73hZDYK.png"></img>
@@ -82,8 +82,7 @@
               <a><i class="fa-solid fa-heart"></i></a>
             </div>
           </footer>
-        </div>
-        
+        </div> -->
       </section>
     </main>
   </body>

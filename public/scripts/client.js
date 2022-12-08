@@ -67,13 +67,21 @@ $(document).ready(function () {
     // get return value and append it to tweets container
     tweets.forEach(element => {
       const $tweet = createTweetElement(element);
-      $("#tweets-container").append($tweet[0]);
+      $("#tweets-container").prepend($tweet[0]);
     });
   };
 
   renderTweets(data);
 
-  
+  $("#new-tweet-form").submit(function(event) {
+    event.preventDefault();
+
+    // convert JSON data to query-text format
+    const serializedData = $(this).serialize();
+
+    // jQuery AJAX post request
+    $.post("/tweets", serializedData);
+  });
 
 
 });
