@@ -6,6 +6,11 @@
 
 $(document).ready(function() {
 
+  const escape = function(str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 
   const createTweetElement = function(data) {
     console.log(data.content.text);
@@ -20,7 +25,7 @@ $(document).ready(function() {
           <p>${data.user.handle}</p>
         </div>
       </div>
-      <article class="tweet">${data.content.text}</article>
+      <article class="tweet">${escape(tweetData.content.text)}</article>
       <footer>
         <div>${timeago.format(data.created_at)}</div>
         <div class="small-icons">
@@ -53,28 +58,30 @@ $(document).ready(function() {
     });
   };
 
-  const validation = (data) => {
-    if (!data) {
-      return false;
-    }
 
-    if (data.length > 140) {
-      return false;
-    }
-
-    return true;
-  };
 
   // initial load function
   loadTweets();
 
   $("#form").submit(function(event) {
     event.preventDefault();
+    $(".error-message").slideUp();
 
     const inputData = $(".input-bar").val();
 
-    const isValid = validation(inputData);
-    console.log(isValid);
+    let isValid = true;
+
+    if (!inputData) {
+      $(".error-message").text("You need to input something");
+      $(".error-message").slideDown(1000);
+      isValid = false;
+    }
+
+    if (inputData.length > 140) {
+      $(".error-message").text("You went over 140 characters");
+      $(".error-message").slideDown(1000);
+      isValid = false;
+    }
 
     if (isValid) {
       // convert JSON data to query-text format
@@ -85,9 +92,7 @@ $(document).ready(function() {
       $.post("/tweets", serializedData).then(() => {
         loadTweets();
       });
-    } else {
-      console.log("no tweets found");
-    }
+    } 
     
   });
 
