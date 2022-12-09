@@ -63,23 +63,34 @@ $(document).ready(function() {
   // initial load function
   loadTweets();
 
+  // loads new tweets
+  $(".nav-text").click(() => {
+    if($(".new-tweet").is(":visible")) {
+      $(".new-tweet").slideUp();
+    } else {
+      $(".new-tweet").slideDown();
+    }
+  })
+
   $("#form").submit(function(event) {
     event.preventDefault();
-    $(".error-message").slideUp();
+    // hides the error message when the 'submit' button is clicked
+    $(".error-message").html(" ");
+    $(".error-message").slideUp(0);
 
     const inputData = $(".input-bar").val();
 
     let isValid = true;
 
     if (!inputData) {
-      $(".error-message").text("You need to input something");
-      $(".error-message").slideDown(1000);
+      $(".error-message").html("<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please input some text.");
+      $(".error-message").slideDown(400);
       isValid = false;
     }
 
     if (inputData.length > 140) {
-      $(".error-message").text("You went over 140 characters");
-      $(".error-message").slideDown(1000);
+      $(".error-message").html("<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please stay under 140 characters.");
+      $(".error-message").slideDown(400);
       isValid = false;
     }
 
