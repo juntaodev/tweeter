@@ -1,8 +1,13 @@
 $(document).ready(function() {
   console.log(this);
 
-  $(".input-bar").on("keyup", function() {
-    const counter = $(".counter");
+  $(".input-bar").on("keyup", function () {
+    const $inputElement = $(this);
+    const divButtonsElement = $inputElement.next()[0];
+    const $divButtonsElement = $(divButtonsElement);
+    const counterElement = $divButtonsElement.find("p")[0]; 
+
+    const counter = $(counterElement);
     const characterCount = 140 - $(this).val().length;
 
     counter.text(characterCount);

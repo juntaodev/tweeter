@@ -51,13 +51,16 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
+
+      
+
       <section class="new-tweet">
         
         <form method="POST" action="/tweets" id="new-tweet-form">
           <input name="text" id="tweet-text" placeholder="What are you humming about?" class="input-bar"></input>
           <div class="under-tweet">
             <button class="tweet-btn" type="submit">Tweet</button>
-            <output name="counter" class="counter" for="tweet-text">140</output>
+            <p name="counter" class="counter" for="tweet-text">140</p>
           </div>
         </form>
       </section>
