@@ -33,3 +33,43 @@ main {
 .red {
   color: red;
 }
+
+.go-up-button {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  display: none;
+  background-color: tomato;
+  text-align: center;
+  padding: 0.5em;
+  border: none;
+  border-radius: 50%;
+  color: floralwhite;
+}
+
+.go-up-button:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transition: 0.5s ease-in-out;
+}
+
+@media only screen and (min-width: 1024px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .header-and-main {
+    width: 100vw;
+    
+    display: flex;
+    justify-content: space-between;
+  }
+  .header {
+    width: 50%;
+  }
+  .container {
+    width: 50%;
+    margin: auto 2em 0 2em
+  }
+}
