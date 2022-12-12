@@ -62,3 +62,12 @@
 .small-icons a:hover {
   color: #caa347;
 }
+
+@media only screen and (min-width: 1024px) {
+  .tweet-container {
+    width: auto;
+  }
+  .username {
+    width: auto;
+  }
+}

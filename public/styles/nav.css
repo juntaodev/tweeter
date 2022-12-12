@@ -11,7 +11,7 @@ nav {
 }
 
 nav .logo {
-  font-family: "Bungee";
+  font-family: "Bungee", sans-serif;
   font-size: 1.2em;
   display: flex-column;
   background: #4056A1;
@@ -19,7 +19,12 @@ nav .logo {
 
 .angles-down {
   text-align: center;
-  color: #;
+  color: orange;
+}
+
+.angles-down :hover {
+  margin-top: 0.5em;
+  transition: 0.5s ease-in-out;
 }
 
 .bold {
