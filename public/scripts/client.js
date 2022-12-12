@@ -4,13 +4,20 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-$(document).ready(function() {
+(function () {
+  $(document).ready(function () {
+    // initial load function
+    loadTweets();
 
-  const escape = function(str) {
+    $("form").submit(submitTweet);
+  });
+
+  // Escape XSS attempts
+  const escape = function (str) {
     let div = document.createElement("div");
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-  }
+  };
 
   const createTweetElement = function(data) {
     console.log(data.content.text);
@@ -39,40 +46,25 @@ $(document).ready(function() {
     return tweet;
   };
 
-  // show tweets in front page
-  const renderTweets = function(tweets) {
-    // loops through tweets
-    // calls createTweetElement for each tweet
-    // get return value and append it to tweets container
-    tweets.forEach(element => {
+  // show tweets
+  const renderTweets = function (tweets) {
+    const $container = $("#tweets-container").empty();
+
+    tweets.forEach((element) => {
       const $tweet = createTweetElement(element);
-      $("#tweets-container").prepend($tweet[0]);
+      $container.prepend($tweet[0]);
     });
   };
 
   // load tweets from server
-  const loadTweets = function() {
-    // sends loaded data to renderTweets using AJAX
-    $.ajax("/tweets", { method: "GET" }).then(function(data) {
+  const loadTweets = function () {
+    $.get("/tweets").then(function (data) {
       renderTweets(data);
     });
   };
 
-
-
-  // initial load function
-  loadTweets();
-
-  // loads new tweets
-  $(".nav-text").click(() => {
-    if($(".new-tweet").is(":visible")) {
-      $(".new-tweet").slideUp();
-    } else {
-      $(".new-tweet").slideDown();
-    }
-  })
-
-  $("#form").submit(function(event) {
+  // this section dictates what to do after 'submit' has been pressed.
+  const submitTweet = function (event) {
     event.preventDefault();
     // hides the error message when the 'submit' button is clicked
     $(".error-message").html(" ");
@@ -83,13 +75,17 @@ $(document).ready(function() {
     let isValid = true;
 
     if (!inputData) {
-      $(".error-message").html("<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please input some text.");
+      $(".error-message").html(
+        "<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please input some text."
+      );
       $(".error-message").slideDown(400);
       isValid = false;
     }
 
     if (inputData.length > 140) {
-      $(".error-message").html("<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please stay under 140 characters.");
+      $(".error-message").html(
+        "<i class='fa-solid fa-circle-exclamation'></i> &emsp;Please stay under 140 characters."
+      );
       $(".error-message").slideDown(400);
       isValid = false;
     }
@@ -103,9 +99,9 @@ $(document).ready(function() {
       $.post("/tweets", serializedData).then(() => {
         loadTweets();
       });
-    } 
-    
-  });
 
-
-});
+      // reset text-box and counter
+      $(".input-bar").val("").trigger("input");
+    }
+  };
+})();
