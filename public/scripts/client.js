@@ -20,7 +20,6 @@
   };
 
   const createTweetElement = function(data) {
-    console.log(data.content.text);
     const tweet = $(`
     <div class="tweet-container">
       <div class="tweet-user">
@@ -32,7 +31,7 @@
           <p>${data.user.handle}</p>
         </div>
       </div>
-      <article class="tweet">${escape(tweetData.content.text)}</article>
+      <article class="tweet">${escape(data.content.text)}</article>
       <footer>
         <div>${timeago.format(data.created_at)}</div>
         <div class="small-icons">
@@ -93,7 +92,6 @@
     if (isValid) {
       // convert JSON data to query-text format
       const serializedData = $(this).serialize();
-      console.log(serializedData);
 
       // jQuery AJAX post request
       $.post("/tweets", serializedData).then(() => {
