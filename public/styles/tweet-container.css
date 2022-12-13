@@ -4,6 +4,7 @@
   background-color: #f4f1ec;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .tweet-container:hover {
@@ -46,6 +47,7 @@
   padding-bottom: 0.25em;
   font-weight: 400;
   border-bottom: 3px solid rgb(71, 71, 71);
+  word-wrap: break-word;
 }
 
 .tweet-container footer {

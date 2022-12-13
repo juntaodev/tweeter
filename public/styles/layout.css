@@ -34,24 +34,6 @@ main {
   color: red;
 }
 
-.go-up-button {
-  position: fixed;
-  right: 1em;
-  bottom: 1em;
-  display: none;
-  background-color: tomato;
-  text-align: center;
-  padding: 0.5em;
-  border: none;
-  border-radius: 50%;
-  color: floralwhite;
-}
-
-.go-up-button:hover {
-  cursor: pointer;
-  scale: 1.1;
-  transition: 0.5s ease-in-out;
-}
 
 @media only screen and (min-width: 1024px) {
   body {
@@ -70,6 +52,6 @@ main {
   }
   .container {
     width: 50%;
-    margin: auto 2em 0 2em
+    margin: 6em 2em 0 2em
   }
 }
